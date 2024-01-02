@@ -16,10 +16,5 @@ class Food(Turtle):
     def change_location(self):
         self.goto(random.randrange(-280, 280, 20), random.randrange(-280, 280, 20))
 
-    # def position(self):
-    #     return self.position()
-    #
-    # def remove(self):
-    #     self.hideturtle()
 
 
