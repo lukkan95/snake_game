@@ -43,15 +43,15 @@ screen.listen()
 
 while game_status:
     screen.update()
-    time.sleep(0.1)
+    time.sleep(0.05)
     snake.move()
     collision_with_food()
     if snake.head.xcor() > 280 or snake.head.xcor() < -280 or snake.head.ycor() > 280 or snake.head.ycor() < -280:
-        game_status = False
-        scoreboard.game_over()
+        scoreboard.reset()
+        snake.reset()
     if collision_with_tail():
-        scoreboard.game_over()
-        game_status = False
+        scoreboard.reset()
+        snake.reset()
 
 
 screen.exitonclick()

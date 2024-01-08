@@ -59,3 +59,10 @@ class Snake:
 
     def extend(self):
         self.add_segment(self.segments[-1].position())
+
+    def reset(self):
+        for seg in self.segments:
+            seg.hideturtle()
+        self.segments.clear()
+        self.create_main_body()
+        self.head = self.segments[0]
