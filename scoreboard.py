@@ -15,25 +15,37 @@ class Scoreboard(Turtle):
         self.goto(0, 275)
         self.color("white")
         self.shapesize(stretch_wid=1, stretch_len=1)
+        self.get_highscore()
         self.write(f"Score: {self.current_score}, High Score: {self.highscore}", move=False, align=ALIGNMENT, font=FONT)
 
     def add_score(self):
         self.current_score += 1
-        self.clear()
-        self.write(f"Score: {self.current_score}, High Score: {self.highscore}", move=False, align=ALIGNMENT, font=FONT)
+        self.refresh()
 
     def reset(self):
         if self.current_score > self.highscore:
             self.highscore = self.current_score
-        self.log_to_highscore_file()
+        self.save_to_highscore()
         self.current_score = 0
+        self.refresh()
 
-    def log_to_highscore_file(self):
-        with open("highscore.txt", mode="r") as file:
-            highscore = file.read()
-            if self.highscore > int(highscore):
-                with open("highscore.txt", mode="r") as file1:
-                    file1.write(f"{self.highscore}")
+    def save_to_highscore(self):
+        with open("highscore.txt") as file:
+            highscore = file.readlines()
+            if self.highscore > int(highscore[0]):
+                with open("highscore.txt", mode="w") as f:
+                    f.writelines(f"{self.highscore}")
+
+    def get_highscore(self):
+        with open("highscore.txt") as file:
+            highscore = file.readlines()
+            if self.highscore < int(highscore[0]):
+                self.highscore = int(highscore[0])
+                self.refresh()
+
+    def refresh(self):
+        self.clear()
+        self.write(f"Score: {self.current_score}, High Score: {self.highscore}", move=False, align=ALIGNMENT, font=FONT)
 
 
 
